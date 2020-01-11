@@ -81,7 +81,7 @@ function signUpCompany() {
         // Do other stuff??
         });
 
-        db.collection("companys").doc(companyName).set({
+        db.collection("companies").doc(companyName).set({
             name: companyName,
             email: companyEmail,
             balance: "$0.00",
