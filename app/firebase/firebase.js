@@ -67,8 +67,7 @@ function signUpUser() {
                     console.error("Error writing document: ", error);
                 });
             }
-        });
-        
+        });   
     }
     else {
         window.alert("Error : Passwords do not match");
@@ -90,20 +89,31 @@ function signUpCompany() {
         // Do other stuff??
         });
 
-        db.collection("companies").doc(companyName).set({
-            name: companyName,
-            email: companyEmail,
-            moneyRaised: "$0.00",
-            numReviews: 0,
-            goals: [],
-            photos: [],
-            dateCreated: firebase.firestore.FieldValue.serverTimestamp()
-        })
-        .then(function() {
-            console.log("Document successfully written!");
-        })
-        .catch(function(error) {
-            console.error("Error writing document: ", error);
+        
+
+        db.collection("companies").doc(companyEmail).get()
+        .then((docSnapshot) => {
+            if (docSnapshot.exists) {
+                console.log("User exists already.");
+            }
+            else {
+                db.collection("companies").doc(companyName).set({
+                    name: companyName,
+                    email: companyEmail,
+                    bio: bio,
+                    moneyRaised: "$0.00",
+                    numReviews: 0,
+                    goals: [],
+                    photos: [],
+                    dateCreated: firebase.firestore.FieldValue.serverTimestamp()
+                })
+                .then(function() {
+                    console.log("Document successfully written!");
+                })
+                .catch(function(error) {
+                    console.error("Error writing document: ", error);
+                });
+            }
         });
     }
     else {
