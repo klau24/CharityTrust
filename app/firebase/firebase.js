@@ -28,7 +28,7 @@ function signIn() {
     });
 }
 
-function signUp() {
+function signUpUser() {
     var firstName = $('#first_name').val();
     var lastName = $('#last_name').val();
     var fullName = firstName + " " + lastName;
@@ -46,11 +46,44 @@ function signUp() {
         // Do other stuff??
         });
 
-        var user = firebase.auth().currentUser;
         db.collection("users").doc(fullName).set({
             name: fullName,
             email: userEmail,
             ssn: userSSN,
+            balance: "$0.00",
+            numReviews: 0,
+            dateCreated: firebase.firestore.FieldValue.serverTimestamp()
+        })
+        .then(function() {
+            console.log("Document successfully written!");
+        })
+        .catch(function(error) {
+            console.error("Error writing document: ", error);
+        });
+    }
+    else {
+        window.alert("Error : Passwords do not match");
+    }
+}
+
+function signUpCompany() {
+    var companyName = $('#company_name').val();
+    var companyEmail = $('#email_field').val();
+    var companyPass = $('#password_field').val();
+    var companyPassConf = $('#password_conf_field').val();
+
+    if (companyPassConf == companyPass) {
+        firebase.auth().createUserWithEmailAndPassword(companyEmail, companyPass).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        window.alert("Error : " + errorMessage);
+        // Do other stuff??
+        });
+
+        db.collection("companys").doc(companyName).set({
+            name: companyName,
+            email: companyEmail,
             balance: "$0.00",
             numReviews: 0,
             dateCreated: firebase.firestore.FieldValue.serverTimestamp()
