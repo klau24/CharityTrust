@@ -1,23 +1,48 @@
 var db = firebase.firestore();
-var user = firebase.auth().currentUser;
 
-$("#your_name").text(getName());
-$("#your_name").text(getName());
-$("#your_name").text(getName());
+firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+        // User is signed in.
+        getName()
+    }
+    else {
+        // User is signed out.
+    }
+});
+
+function loadName(name) {
+    var div = document.getElementById('your_name');
+    console.log(`name is ${name}`);
+
+    // replace text in HTML string:
+    div.innerHTML = div.innerHTML.replace('', name);
+
+    // manipulating text node:
+    for(var node of div.childNodes){
+        if(node.nodeType == 3 && node.textContent == '')
+            node.textContent = name;
+    }
+}
 
 function getName() {
+    var user = firebase.auth().currentUser;
+
     db.collection("users").doc(user.email).get()
     .then(function(doc) {
         if (doc.exists) {
             let data = doc.data();
-            return data["name"];
+            console.log(data["name"]);
+            name = data["name"];
+            loadName(name);
         }
         else {
             db.collection("companies").doc(user.email).get()
             .then(function(doc) {
                 if (doc.exists) {
                     let data = doc.data();
-                    return data["name"];
+                    console.log(data["name"]);
+                    name = data["name"];
+                    loadName(name);
                 }
                 else {
                     console.log("No such document!");
@@ -31,6 +56,7 @@ function getName() {
 }
 
 function getEmail() {
+    var user = firebase.auth().currentUser;
     db.collection("users").doc(user.email).get()
     .then(function(doc) {
         if (doc.exists) {
@@ -56,6 +82,7 @@ function getEmail() {
 }
 
 function getNumReviews() {
+    var user = firebase.auth().currentUser;
     db.collection("users").doc(user.email).get()
     .then(function(doc) {
         if (doc.exists) {

@@ -13,13 +13,13 @@
     text-align: center;
 }
 
-.jumbotron
+.parallax
 {
     border-radius: 0;
     height: 100vh;
 }
 
-.jumbotron .blurb
+.parallax .blurb
 {
     padding-left: 25%;
     padding-right: 25%;

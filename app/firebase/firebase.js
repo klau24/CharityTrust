@@ -20,7 +20,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 });
 
 function signIn() {
-    firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+    firebase.auth().signInWithEmailAndPassword($("#sign_in_email").val(), $("#sign_in_password").val()).catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
