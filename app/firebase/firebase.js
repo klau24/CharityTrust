@@ -93,6 +93,7 @@ function signUpCompany() {
         db.collection("companies").doc(companyName).set({
             name: companyName,
             email: companyEmail,
+            bio: bio,
             moneyRaised: "$0.00",
             numReviews: 0,
             goals: [],
