@@ -46,7 +46,7 @@ function signUpUser() {
         // Do other stuff??
         });
         
-        db.collection(users).doc(userEmail).get()
+        db.collection("users").doc(userEmail).get()
         .then((docSnapshot) => {
             if (docSnapshot.exists) {
                 console.log("User exists already.");
