@@ -45,21 +45,30 @@ function signUpUser() {
         window.alert("Error : " + errorMessage);
         // Do other stuff??
         });
-
-        db.collection("users").doc(fullName).set({
-            name: fullName,
-            email: userEmail,
-            ssn: userSSN,
-            balance: "$0.00",
-            numReviews: 0,
-            dateCreated: firebase.firestore.FieldValue.serverTimestamp()
-        })
-        .then(function() {
-            console.log("Document successfully written!");
-        })
-        .catch(function(error) {
-            console.error("Error writing document: ", error);
+        
+        db.collection("users").doc(userEmail).get()
+        .then((docSnapshot) => {
+            if (docSnapshot.exists) {
+                console.log("User exists already.");
+            }
+            else {
+                db.collection("users").doc(userEmail).set({
+                    name: fullName,
+                    email: userEmail,
+                    ssn: userSSN,
+                    balance: "$0.00",
+                    numReviews: 0,
+                    dateCreated: firebase.firestore.FieldValue.serverTimestamp()
+                })
+                .then(function() {
+                    console.log("Document successfully written!");
+                })
+                .catch(function(error) {
+                    console.error("Error writing document: ", error);
+                });
+            }
         });
+        
     }
     else {
         window.alert("Error : Passwords do not match");
@@ -81,11 +90,14 @@ function signUpCompany() {
         // Do other stuff??
         });
 
-        db.collection("companys").doc(companyName).set({
+        db.collection("companies").doc(companyName).set({
             name: companyName,
             email: companyEmail,
-            balance: "$0.00",
+            bio: bio,
+            moneyRaised: "$0.00",
             numReviews: 0,
+            goals: [],
+            photos: [],
             dateCreated: firebase.firestore.FieldValue.serverTimestamp()
         })
         .then(function() {
@@ -103,4 +115,3 @@ function signUpCompany() {
 function signOut() {
     firebase.auth().signOut();
 }
-
