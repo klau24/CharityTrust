@@ -1,17 +1,83 @@
 var db = firebase.firestore();
 var user = firebase.auth().currentUser;
 
-function getEmail() {
-    return await db.collection("users").doc(user.email).get("email");
-}
+$("#your_name").text(getName());
+$("#your_name").text(getName());
+$("#your_name").text(getName());
 
 function getName() {
-    return await db.collection("users").doc(user.email).get("name");
+    db.collection("users").doc(user.email).get()
+    .then(function(doc) {
+        if (doc.exists) {
+            let data = doc.data();
+            return data["name"];
+        }
+        else {
+            db.collection("companies").doc(user.email).get()
+            .then(function(doc) {
+                if (doc.exists) {
+                    let data = doc.data();
+                    return data["name"];
+                }
+                else {
+                    console.log("No such document!");
+                }
+            })
+        }
+    })
+    .catch(function(error) {
+        console.log("Error getting document:", error);
+    });
+}
 
+function getEmail() {
+    db.collection("users").doc(user.email).get()
+    .then(function(doc) {
+        if (doc.exists) {
+            let data = doc.data();
+            return data["email"];
+        }
+        else {
+            db.collection("companies").doc(user.email).get()
+            .then(function(doc) {
+                if (doc.exists) {
+                    let data = doc.data();
+                    return data["email"];
+                }
+                else {
+                    console.log("No such document!");
+                }
+            })
+        }
+    })
+    .catch(function(error) {
+        console.log("Error getting document:", error);
+    });
 }
 
 function getNumReviews() {
-    return await db.collection("users").doc(user.email).get("numReviews");
+    db.collection("users").doc(user.email).get()
+    .then(function(doc) {
+        if (doc.exists) {
+            let data = doc.data();
+            return data["numReviews"];
+        }
+        else {
+            db.collection("companies").doc(user.email).get()
+            .then(function(doc) {
+                if (doc.exists) {
+                    let data = doc.data();
+                    return data["numReviews"];
+                }
+                else {
+                    console.log("No such document!");
+                }
+            })
+        }
+    })
+    .catch(function(error) {
+        console.log("Error getting document:", error);
+    });
 }
 
 function editName() {

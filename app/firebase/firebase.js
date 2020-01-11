@@ -42,7 +42,16 @@ function signUpUser() {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
-        window.alert("Error : " + errorMessage);
+
+        db.collection("users").doc(userEmail).get().then((docSnapshot) => {
+            if (docSnapshot.exists) {
+                window.alert("Error : " + errorMessage + `. This person is of type User.`);
+            }
+            else {
+                window.alert("Error : " + errorMessage + `. This person is of type Company.`);
+            }
+        })
+
         // Do other stuff??
         });
         
@@ -52,20 +61,29 @@ function signUpUser() {
                 console.log("User exists already.");
             }
             else {
-                db.collection("users").doc(userEmail).set({
-                    name: fullName,
-                    email: userEmail,
-                    ssn: userSSN,
-                    balance: "$0.00",
-                    numReviews: 0,
-                    dateCreated: firebase.firestore.FieldValue.serverTimestamp()
+                db.collection("companies").doc(userEmail).get()
+                .then((docSnapshot) => {
+                    if (docSnapshot.exists) {
+                        console.log("Company exists already.")
+                    }
+                    else {
+                        db.collection("users").doc(userEmail).set({
+                            name: fullName,
+                            type: "user",
+                            email: userEmail,
+                            ssn: userSSN,
+                            balance: "$0.00",
+                            numReviews: 0,
+                            dateCreated: firebase.firestore.FieldValue.serverTimestamp()
+                        })
+                        .then(function() {
+                            console.log("Document successfully written!");
+                        })
+                        .catch(function(error) {
+                            console.error("Error writing document: ", error);
+                        });
+                    }
                 })
-                .then(function() {
-                    console.log("Document successfully written!");
-                })
-                .catch(function(error) {
-                    console.error("Error writing document: ", error);
-                });
             }
         });   
     }
@@ -85,7 +103,16 @@ function signUpCompany() {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
-        window.alert("Error : " + errorMessage);
+        
+        db.collection("company").doc(companyEmail).get().then((docSnapshot) => {
+            if (docSnapshot.exists) {
+                window.alert("Error : " + errorMessage + `. This person is of type Company.`);
+            }
+            else {
+                window.alert("Error : " + errorMessage + `. This person is of type User.`);
+            }
+        })
+
         // Do other stuff??
         });
 
@@ -97,22 +124,31 @@ function signUpCompany() {
                 console.log("User exists already.");
             }
             else {
-                db.collection("companies").doc(companyName).set({
-                    name: companyName,
-                    email: companyEmail,
-                    bio: bio,
-                    moneyRaised: "$0.00",
-                    numReviews: 0,
-                    goals: [],
-                    photos: [],
-                    dateCreated: firebase.firestore.FieldValue.serverTimestamp()
+                db.collection("companies").doc(userEmail).get()
+                .then((docSnapshot) => {
+                    if (docSnapshot.exists) {
+                        console.log("Company exists already.")
+                    }
+                    else {
+                        db.collection("companies").doc(companyName).set({
+                            name: companyName,
+                            type: "company",
+                            email: companyEmail,
+                            bio: bio,
+                            moneyRaised: "$0.00",
+                            numReviews: 0,
+                            goals: [],
+                            photos: [],
+                            dateCreated: firebase.firestore.FieldValue.serverTimestamp()
+                        })
+                        .then(function() {
+                            console.log("Document successfully written!");
+                        })
+                        .catch(function(error) {
+                            console.error("Error writing document: ", error);
+                        });
+                    }
                 })
-                .then(function() {
-                    console.log("Document successfully written!");
-                })
-                .catch(function(error) {
-                    console.error("Error writing document: ", error);
-                });
             }
         });
     }
