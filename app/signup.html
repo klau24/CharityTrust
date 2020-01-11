@@ -11,8 +11,18 @@
     </head>
 
     <body>
-        <p>hello!</p>
-        <a href="signup.html">sign up</a>
+        <div id="form">
+            <div>
+                <input type="name" class="input" maxlength="30" placeholder="First Name" id="first_name" required><br />
+                <input type="name" class="input" maxlength="30" placeholder="Last Name" id="last_name" required><br />
+                <input type="email" class="input" maxlength="30" placeholder="Email" id="email_field" required><br />
+                <input type="password" class="input" maxlength="30" placeholder="Password" id="password_field" required><br />
+                <input type="password" class="input" maxlength="30" placeholder="Re-type password" id="password_conf_field" required><br />
+                <input type="SSN" class="input" maxlength="9" placeholder="Social Security Number" id="user_ssn" required><br />
+
+                <button id="createButton" onclick="signUp()"> Create Account </button>
+            </div>
+        </div>
         
         <!-- firebase SDK's -->
         <script src="/__/firebase/7.6.2/firebase-app.js"></script>
