@@ -93,8 +93,10 @@ function signUpCompany() {
         db.collection("companies").doc(companyName).set({
             name: companyName,
             email: companyEmail,
-            balance: "$0.00",
+            moneyRaised: "$0.00",
             numReviews: 0,
+            goals: [],
+            photos: [],
             dateCreated: firebase.firestore.FieldValue.serverTimestamp()
         })
         .then(function() {
@@ -112,4 +114,3 @@ function signUpCompany() {
 function signOut() {
     firebase.auth().signOut();
 }
-
