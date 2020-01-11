@@ -45,21 +45,30 @@ function signUpUser() {
         window.alert("Error : " + errorMessage);
         // Do other stuff??
         });
-
-        db.collection("users").doc(fullName).set({
-            name: fullName,
-            email: userEmail,
-            ssn: userSSN,
-            balance: "$0.00",
-            numReviews: 0,
-            dateCreated: firebase.firestore.FieldValue.serverTimestamp()
-        })
-        .then(function() {
-            console.log("Document successfully written!");
-        })
-        .catch(function(error) {
-            console.error("Error writing document: ", error);
+        
+        db.collection(users).doc(userEmail).get()
+        .then((docSnapshot) => {
+            if (docSnapshot.exists) {
+                console.log("User exists already.");
+            }
+            else {
+                db.collection("users").doc(userEmail).set({
+                    name: fullName,
+                    email: userEmail,
+                    ssn: userSSN,
+                    balance: "$0.00",
+                    numReviews: 0,
+                    dateCreated: firebase.firestore.FieldValue.serverTimestamp()
+                })
+                .then(function() {
+                    console.log("Document successfully written!");
+                })
+                .catch(function(error) {
+                    console.error("Error writing document: ", error);
+                });
+            }
         });
+        
     }
     else {
         window.alert("Error : Passwords do not match");
