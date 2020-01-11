@@ -10,43 +10,192 @@ function getParameterByName(name, url) {
 // var foo = getParameterByName('foo'); // "lorem"
 var companyName = getParameterByName('name');
 
+function loadName(name) {
+    var div = document.getElementById('your_name');
+    console.log(`name is ${name}`);
+
+    // replace text in HTML string:
+    div.innerHTML = div.innerHTML.replace('', name);
+
+    // manipulating text node:
+    for(var node of div.childNodes){
+        if(node.nodeType == 3 && node.textContent == '')
+            node.textContent = name;
+    }
+}
+
+function loadBio(bio) {
+    var div = document.getElementById('company_bio');
+
+    // replace text in HTML string:
+    div.innerHTML = div.innerHTML.replace('', bio);
+
+    // manipulating text node:
+    for(var node of div.childNodes){
+        if(node.nodeType == 3 && node.textContent == '')
+            node.textContent = bio;
+    }
+}
+
+function loadGoals(goal) {
+    var div = document.getElementById('company_goals');
+
+
+    // FOR LOOP
+
+    // replace text in HTML string:
+    div.innerHTML = div.innerHTML.replace('', goal);
+
+    // manipulating text node:
+    for(var node of div.childNodes){
+        if(node.nodeType == 3 && node.textContent == '')
+            node.textContent = goal;
+    }
+}
+
+
 
 var db = firebase.firestore();
 
+firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+        // User is signed in.
+        getName(companyName);
+        getBio(companyName);
+        getGoals(companyName);
+    }
+    else {
+        // User is signed out.
+        getName(companyName);
+        getBio(companyName);
+        getGoals(companyName);
+    }
+});
+
 function getListOfCompanies() {
-    return await db.collection(company).get();
+    return db.collection(company).get();
 }
 
-function getBio() {
-    return await db.collection(company).doc(companyName).get("bio");
+function getBio(companyName) {
+    db.collection("users").doc(companyName).get()
+    .then(function(doc) {
+        if (doc.exists) {
+            let data = doc.data();
+            console.log(data["bio"]);
+            bio = data["bio"];
+            loadName(bio);
+        }
+        else {
+            db.collection("companies").doc(companyName).get()
+            .then(function(doc) {
+                if (doc.exists) {
+                    let data = doc.data();
+                    console.log(data["bio"]);
+                    bio = data["bio"];
+                    loadName(bio);
+                }
+                else {
+                    console.log("No such document!");
+                }
+            })
+        }
+    })
+    .catch(function(error) {
+        console.log("Error getting document:", error);
+    });
 }
 
-function getPhotos() {
-    return await db.collection(company).doc(companyName).get("photos");
+function getGoals(companyName) {
+    db.collection("users").doc(companyName).get()
+    .then(function(doc) {
+        if (doc.exists) {
+            let data = doc.data();
+            console.log(data["goals"]);
+            goals = data["goals"];
+            loadName(goals);
+        }
+        else {
+            db.collection("companies").doc(companyName).get()
+            .then(function(doc) {
+                if (doc.exists) {
+                    let data = doc.data();
+                    console.log(data["goals"]);
+                    goals = data["goals"];
+                    loadName(goals);
+                }
+                else {
+                    console.log("No such document!");
+                }
+            })
+        }
+    })
+    .catch(function(error) {
+        console.log("Error getting document:", error);
+    });
 
 }
 
-function getGoals() {
-    return await db.collection(company).doc(companyName).get("goals");
-
+function getName(companyName) {
+    db.collection("users").doc(companyName).get()
+    .then(function(doc) {
+        if (doc.exists) {
+            let data = doc.data();
+            console.log(data["name"]);
+            name = data["name"];
+            loadName(name);
+        }
+        else {
+            db.collection("companies").doc(companyName).get()
+            .then(function(doc) {
+                if (doc.exists) {
+                    let data = doc.data();
+                    console.log(data["name"]);
+                    name = data["name"];
+                    loadName(name);
+                }
+                else {
+                    console.log("No such document!");
+                }
+            })
+        }
+    })
+    .catch(function(error) {
+        console.log("Error getting document:", error);
+    });
 }
 
-function getName() {
-    return await db.collection(company).doc(companyName).get("name");
+function getNumReviews(companyName) {
+    var user = firebase.auth().currentUser;
 
+    db.collection("users").doc(user.email).get()
+    .then(function(doc) {
+        if (doc.exists) {
+            let data = doc.data();
+            console.log(data["moneyRaised"]);
+            name = data["moneyRaised"];
+            loadName(name);
+        }
+        else {
+            db.collection("companies").doc(user.email).get()
+            .then(function(doc) {
+                if (doc.exists) {
+                    let data = doc.data();
+                    console.log(data["moneyRaised"]);
+                    name = data["moneyRaised"];
+                    loadName(name);
+                }
+                else {
+                    console.log("No such document!");
+                }
+            })
+        }
+    })
+    .catch(function(error) {
+        console.log("Error getting document:", error);
+    });
 }
 
-function getMoneyRaised() {
-    return await db.collection(company).doc(companyName).get("moneyRaised");
-    
-}
-
-function getNumReviews() {
-    return await db.collection(company).doc(companyName).get("numReviews");
-    
-}
-
-function editBio() {
+function editBio(companyName) {
     var bio = $('#bio_input').val();
 
     if ( bio.length > 0 ) {

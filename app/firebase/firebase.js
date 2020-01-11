@@ -20,12 +20,16 @@ firebase.auth().onAuthStateChanged(function(user) {
 });
 
 function signIn() {
-    firebase.auth().signInWithEmailAndPassword($("#sign_in_email").val(), $("#sign_in_password").val()).catch(function(error) {
+    console.log("Attempting to sign in...");
+    var email = $("#email_field").val();
+    var password = $("#password_field").val();
+    firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
         // ...
     });
+    console.log("Success!");
 }
 
 function signUpUser() {
@@ -97,6 +101,7 @@ function signUpCompany() {
     var companyEmail = $('#email_field').val();
     var companyPass = $('#password_field').val();
     var companyPassConf = $('#password_conf_field').val();
+    var companyBio = $('#company_bio').val();
 
     if (companyPassConf == companyPass) {
         firebase.auth().createUserWithEmailAndPassword(companyEmail, companyPass).catch(function(error) {
@@ -116,25 +121,23 @@ function signUpCompany() {
         // Do other stuff??
         });
 
-        
-
         db.collection("companies").doc(companyEmail).get()
         .then((docSnapshot) => {
             if (docSnapshot.exists) {
-                console.log("User exists already.");
+                console.log("company exists already.");
             }
             else {
-                db.collection("companies").doc(userEmail).get()
+                db.collection("users").doc(companyEmail).get()
                 .then((docSnapshot) => {
                     if (docSnapshot.exists) {
-                        console.log("Company exists already.")
+                        console.log("User exists already.")
                     }
                     else {
                         db.collection("companies").doc(companyName).set({
                             name: companyName,
                             type: "company",
                             email: companyEmail,
-                            bio: bio,
+                            bio: companyBio,
                             moneyRaised: "$0.00",
                             numReviews: 0,
                             goals: [],
