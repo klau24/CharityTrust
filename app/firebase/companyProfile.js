@@ -39,17 +39,20 @@ function loadBio(bio) {
 
 function loadGoals(goals) {
     var div = document.getElementById('company_goals');
-
-
+    var msg = "";
     // FOR LOOP
+    for (i=0;i<3;i++) {
+        var goal = goals[i];
+        msg = msg + `<li> Goal ${i+1}: ${goal}</li></br>`;
+    }
 
     // replace text in HTML string:
-    div.innerHTML = div.innerHTML.replace('', goals);
+    div.innerHTML = div.innerHTML.replace('', msg);
 
     // manipulating text node:
     for(var node of div.childNodes){
         if(node.nodeType == 3 && node.textContent == '')
-            node.textContent = goals;
+            node.textContent = msg;
     }
 }
 
@@ -84,7 +87,7 @@ function getBio(companyName) {
             let data = doc.data();
             console.log(data["bio"]);
             bio = data["bio"];
-            loadName(bio);
+            loadBio(bio);
         }
         else {
             db.collection("companies").doc(companyName).get()
@@ -93,7 +96,7 @@ function getBio(companyName) {
                     let data = doc.data();
                     console.log(data["bio"]);
                     bio = data["bio"];
-                    loadName(bio);
+                    loadBio(bio);
                 }
                 else {
                     console.log("No such document!");
@@ -113,7 +116,7 @@ function getGoals(companyName) {
             let data = doc.data();
             console.log(data["goals"]);
             goals = data["goals"];
-            loadName(goals);
+            loadGoals(goals);
         }
         else {
             db.collection("companies").doc(companyName).get()
@@ -122,7 +125,7 @@ function getGoals(companyName) {
                     let data = doc.data();
                     console.log(data["goals"]);
                     goals = data["goals"];
-                    loadName(goals);
+                    loadGoals(goals);
                 }
                 else {
                     console.log("No such document!");
