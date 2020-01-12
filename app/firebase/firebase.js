@@ -165,16 +165,6 @@ function signUpCompany() {
 }
 
 function signOut() {
-<<<<<<< HEAD
-    firebase.auth().signOut()
-    .then(function() {
-        // Sign-out successful.
-    })
-    .catch(function(error) {
-        // An error happened.
-    });
-}
-=======
     firebase.auth().signOut();
 }
 
@@ -200,7 +190,7 @@ firebase.auth().onAuthStateChanged(function(user) {
         var div = document.getElementById('profile-name');
         removeSignIn();
         showProfile();
-        var name = getName()
+        var name = getNavName()
         div.innerHTML = div.innerHTML.replace('', name);
         
     }
@@ -211,7 +201,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     }
 });
 
-function getName() {
+function getNavName() {
     var user = firebase.auth().currentUser;
 
     db.collection("users").doc(user.email).get()
@@ -220,7 +210,7 @@ function getName() {
             let data = doc.data();
             console.log(data["name"]);
             name = data["name"];
-            loadName(name);
+            loadNavName(name);
         }
         else {
             db.collection("companies").doc(user.email).get()
@@ -229,7 +219,7 @@ function getName() {
                     let data = doc.data();
                     console.log(data["name"]);
                     name = data["name"];
-                    loadName(name);
+                    loadNavName(name);
                 }
                 else {
                     console.log("No such document!");
@@ -242,11 +232,10 @@ function getName() {
     });
 }
 
-function loadName(name) {
+function loadNavName(name) {
     var div = document.getElementById('profile-name');
     console.log(`name is ${name}`);
 
     // replace text in HTML string:
     div.innerHTML = name;
 }
->>>>>>> ce5240a5bfc92cfe821814e448f033308cacf456
