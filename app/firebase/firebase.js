@@ -21,12 +21,13 @@ firebase.auth().onAuthStateChanged(function(user) {
 
 function signIn() {
     console.log("Attempting to sign in...");
-    var email = $("#email_field").val();
-    var password = $("#password_field").val();
+    var email = $("#login_email").val();
+    var password = $("#login_password").val();
     firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
+        console.error(errorMessage);
         // ...
     });
     console.log("Success!");
