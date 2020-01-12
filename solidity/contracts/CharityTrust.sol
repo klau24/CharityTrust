@@ -24,6 +24,11 @@ contract CharityTrust {
         return charity.name;
     }
 
+    function getNumDonors(address payable _charityAddress) public view returns (uint256) {
+        Charity memory charity = charities[_charityAddress];
+        return charity.numOfDonors;
+    }
+
     function getVoted(address payable _charityAddress, address voter) public view returns (bool) {
         Charity storage charity = charities[_charityAddress];
         return charity.voted[voter];
@@ -48,11 +53,12 @@ contract CharityTrust {
         require(!charity.voted[_voterAddress], "Person voted already");
         charity.voted[_voterAddress] = true;
         charity.totalVotes = charity.totalVotes + 1;
-        require(yes, "This person voted no");
-        charity.yesVotes = charity.yesVotes + 1;
+        if (yes) {
+            charity.yesVotes = charity.yesVotes + 1;
+        }
 
         // pseudo code
-        if (charity.totalVotes >= 4 && calculateThreshold(charity.yesVotes, charity.totalVotes)) {
+        if (charity.totalVotes >= 3 && calculateThreshold(charity.yesVotes, charity.totalVotes)) {
             calculateTotalFunds(_charityAddress);
         }
         else if (charity.totalVotes == 10) {
@@ -102,7 +108,7 @@ contract CharityTrust {
             donor.transfer(donorAmount);
         }
 
-        charity.yesVotes = 0;
-        charity.totalVotes = 0;
+        // charity.yesVotes = 0;
+        // charity.totalVotes = 0;
     }
 }
