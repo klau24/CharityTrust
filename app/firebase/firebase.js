@@ -21,15 +21,15 @@ firebase.auth().onAuthStateChanged(function(user) {
 
 function signIn() {
     console.log("Attempting to sign in...");
-    var email = $("#email_field").val();
-    var password = $("#password_field").val();
+    var email = $("#login_email").val();
+    var password = $("#login_password").val();
     firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
+        console.error(errorMessage);
         // ...
     });
-    console.log("Success!");
 }
 
 function signUpUser() {
@@ -165,6 +165,7 @@ function signUpCompany() {
 }
 
 function signOut() {
+<<<<<<< HEAD
     firebase.auth().signOut()
     .then(function() {
         // Sign-out successful.
@@ -173,3 +174,79 @@ function signOut() {
         // An error happened.
     });
 }
+=======
+    firebase.auth().signOut();
+}
+
+function removeSignIn() {
+    $("#loginDropdown").addClass("remove");
+}
+
+function showSignIn() {
+    $("#loginDropdown").removeClass("remove");
+}
+
+function showProfile() {
+    $("#profileDropdown").removeClass("remove");
+}
+
+function removeProfile() {
+    $("#profileDropdown").addClass("remove");
+}
+
+firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+        // User is signed in.
+        var div = document.getElementById('profile-name');
+        removeSignIn();
+        showProfile();
+        var name = getName()
+        div.innerHTML = div.innerHTML.replace('', name);
+        
+    }
+    else {
+        // User is signed out.
+        showSignIn();
+        removeProfile();
+    }
+});
+
+function getName() {
+    var user = firebase.auth().currentUser;
+
+    db.collection("users").doc(user.email).get()
+    .then(function(doc) {
+        if (doc.exists) {
+            let data = doc.data();
+            console.log(data["name"]);
+            name = data["name"];
+            loadName(name);
+        }
+        else {
+            db.collection("companies").doc(user.email).get()
+            .then(function(doc) {
+                if (doc.exists) {
+                    let data = doc.data();
+                    console.log(data["name"]);
+                    name = data["name"];
+                    loadName(name);
+                }
+                else {
+                    console.log("No such document!");
+                }
+            })
+        }
+    })
+    .catch(function(error) {
+        console.log("Error getting document:", error);
+    });
+}
+
+function loadName(name) {
+    var div = document.getElementById('profile-name');
+    console.log(`name is ${name}`);
+
+    // replace text in HTML string:
+    div.innerHTML = name;
+}
+>>>>>>> ce5240a5bfc92cfe821814e448f033308cacf456
