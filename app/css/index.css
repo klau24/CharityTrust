@@ -52,3 +52,15 @@
     right: 0;
     left: auto;
 }
+
+.profile-pic {
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.remove {
+    display: none;
+}
