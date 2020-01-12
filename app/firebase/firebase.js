@@ -36,7 +36,7 @@ function signUpUser() {
     var firstName = $('#first_name').val();
     var lastName = $('#last_name').val();
     var fullName = firstName + " " + lastName;
-    var userEmail = $('#email_field').val();
+    var userEmail = $('#email_field').val().toLowerCase();
     var userPass = $('#password_field').val();
     var userPassConf = $('#password_conf_field').val();
     var userSSN = $('#user_ssn').val();
@@ -98,7 +98,7 @@ function signUpUser() {
 
 function signUpCompany() {
     var companyName = $('#company_name').val();
-    var companyEmail = $('#email_field').val();
+    var companyEmail = $('#email_field').val().toLowerCase();
     var companyPass = $('#password_field').val();
     var companyPassConf = $('#password_conf_field').val();
     var companyBio = $('#company_bio').val();
@@ -190,7 +190,7 @@ firebase.auth().onAuthStateChanged(function(user) {
         var div = document.getElementById('profile-name');
         removeSignIn();
         showProfile();
-        var name = getName()
+        var name = getNavName()
         div.innerHTML = div.innerHTML.replace('', name);
         
     }
@@ -201,7 +201,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     }
 });
 
-function getName() {
+function getNavName() {
     var user = firebase.auth().currentUser;
 
     db.collection("users").doc(user.email).get()
@@ -210,7 +210,7 @@ function getName() {
             let data = doc.data();
             console.log(data["name"]);
             name = data["name"];
-            loadName(name);
+            loadNavName(name);
         }
         else {
             db.collection("companies").doc(user.email).get()
@@ -219,7 +219,7 @@ function getName() {
                     let data = doc.data();
                     console.log(data["name"]);
                     name = data["name"];
-                    loadName(name);
+                    loadNavName(name);
                 }
                 else {
                     console.log("No such document!");
@@ -232,7 +232,7 @@ function getName() {
     });
 }
 
-function loadName(name) {
+function loadNavName(name) {
     var div = document.getElementById('profile-name');
     console.log(`name is ${name}`);
 

@@ -77,7 +77,14 @@ firebase.auth().onAuthStateChanged(function(user) {
 });
 
 function getListOfCompanies() {
-    return db.collection(company).get();
+    var companies = [];
+    db.collection("companies").get()
+    .then(function(querySnapshot) {
+        querySnapshot.forEach(doc => {
+            companies.push(doc.id);
+        });
+    });
+    return companies;
 }
 
 function getBio(companyName) {
