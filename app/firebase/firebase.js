@@ -36,7 +36,7 @@ function signUpUser() {
     var firstName = $('#first_name').val();
     var lastName = $('#last_name').val();
     var fullName = firstName + " " + lastName;
-    var userEmail = $('#email_field').val();
+    var userEmail = $('#email_field').val().toLowerCase();
     var userPass = $('#password_field').val();
     var userPassConf = $('#password_conf_field').val();
     var userSSN = $('#user_ssn').val();
@@ -98,7 +98,7 @@ function signUpUser() {
 
 function signUpCompany() {
     var companyName = $('#company_name').val();
-    var companyEmail = $('#email_field').val();
+    var companyEmail = $('#email_field').val().toLowerCase();
     var companyPass = $('#password_field').val();
     var companyPassConf = $('#password_conf_field').val();
     var companyBio = $('#company_bio').val();
@@ -165,5 +165,11 @@ function signUpCompany() {
 }
 
 function signOut() {
-    firebase.auth().signOut();
+    firebase.auth().signOut()
+    .then(function() {
+        // Sign-out successful.
+    })
+    .catch(function(error) {
+        // An error happened.
+    });
 }
