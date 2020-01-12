@@ -30,7 +30,6 @@ function signIn() {
         console.error(errorMessage);
         // ...
     });
-    console.log("Success!");
 }
 
 function signUpUser() {
@@ -167,4 +166,76 @@ function signUpCompany() {
 
 function signOut() {
     firebase.auth().signOut();
+}
+
+function removeSignIn() {
+    $("#loginDropdown").addClass("remove");
+}
+
+function showSignIn() {
+    $("#loginDropdown").removeClass("remove");
+}
+
+function showProfile() {
+    $("#profileDropdown").removeClass("remove");
+}
+
+function removeProfile() {
+    $("#profileDropdown").addClass("remove");
+}
+
+firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+        // User is signed in.
+        var div = document.getElementById('profile-name');
+        removeSignIn();
+        showProfile();
+        var name = getName()
+        div.innerHTML = div.innerHTML.replace('', name);
+        
+    }
+    else {
+        // User is signed out.
+        showSignIn();
+        removeProfile();
+    }
+});
+
+function getName() {
+    var user = firebase.auth().currentUser;
+
+    db.collection("users").doc(user.email).get()
+    .then(function(doc) {
+        if (doc.exists) {
+            let data = doc.data();
+            console.log(data["name"]);
+            name = data["name"];
+            loadName(name);
+        }
+        else {
+            db.collection("companies").doc(user.email).get()
+            .then(function(doc) {
+                if (doc.exists) {
+                    let data = doc.data();
+                    console.log(data["name"]);
+                    name = data["name"];
+                    loadName(name);
+                }
+                else {
+                    console.log("No such document!");
+                }
+            })
+        }
+    })
+    .catch(function(error) {
+        console.log("Error getting document:", error);
+    });
+}
+
+function loadName(name) {
+    var div = document.getElementById('profile-name');
+    console.log(`name is ${name}`);
+
+    // replace text in HTML string:
+    div.innerHTML = name;
 }
