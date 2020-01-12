@@ -9,6 +9,7 @@ contract CharityTrust {
         mapping(uint256=>address) donors;
         mapping(address=>uint256) withheldFunds;
         mapping(uint256=>uint256) goalCount;
+        mapping(uint256=>uint256) goalValue;
         mapping(address=>bool) voted;
         address charityAddress;
     }
@@ -28,7 +29,11 @@ contract CharityTrust {
     }
 
     function createCharity(string _name, address _charityAddress) public {
-        charities[_charityAddress] = Charity(_name, 3, 1, 0, 0, 0, 0, 0, _charityAddress);
+        charities[_charityAddress] = Charity(_name, 3, 1, 0, 0, 0, 0, 0, 0, _charityAddress);
+        charity = charities[_charityAddress];
+        charity.goalValue[1] = 2;
+        charity.goalValue[2] = 5;
+        charity.goalValue[3] = 10;
     }
 
     function donate() public {
