@@ -64,6 +64,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     }
     else {
         // User is signed out.
+        window.location.replace("404.html");
         getName(companyName);
         getBio(companyName);
         getGoals(companyName);
