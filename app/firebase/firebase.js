@@ -137,7 +137,7 @@ function signUpCompany() {
                         console.log("User exists already.")
                     }
                     else {
-                        db.collection("companies").doc(companyName).set({
+                        db.collection("companies").doc(companyEmail).set({
                             name: companyName,
                             type: "company",
                             email: companyEmail,
