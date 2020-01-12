@@ -1,0 +1,100 @@
+<html>
+    <head>
+        <title>CharityTrust</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--    Global styles/assets    -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="css/index.css"/>
+        <link rel='shortcut icon' type="image/png" href="assets/logo.png">
+        <!--    JQuery    -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    </head>
+
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand font-weight-bold" href="index.html">Charity<span class="text-purple">Trust</span></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="companies.html">Organizations<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="about.html">About Us</a>
+            </li>
+            </ul>
+
+            <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle p-0 remove" href="#" id="profileDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img src="images/profile.jpg" class="profile-pic">
+                </a>
+                <div class="dropdown-menu" aria-labelledby="profileDropdown">
+                <a class="dropdown-item" id="profile-name" href="profile.html"></a>
+                <a class="dropdown-item" href="yourProfile.html">Settings</a>
+                <div class="dropdown-divider"></div>
+                <button class="dropdown-item" onclick="signOut()">Sign Out</button>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="loginDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Sign In
+                </a>
+                <div class="dropdown-menu" style="width: 300px;" aria-labelledby="loginDropdown">
+                    <div style="margin: 1rem 1rem;">
+											 <input type="email" class="input form-control" id="login_email" placeholder="Email address" required><br />
+											 <input type="password" class="input form-control" id="login_password" placeholder="Password" required>
+                                             <div class="help-block text-right"><a href="">Forget the password ?</a></div>
+											 <button class="btn btn-primary btn-block bg-purple" onclick="signIn()">Sign in</button>
+										<div class="checkbox">
+											 <label>
+											 <input type="checkbox"> Keep me logged-in
+											 </label>
+										</div>
+                                    </div>
+                </div>
+            </li>
+            </ul>
+
+        </div>
+        </nav>
+        
+        <div class="company-list">
+        <div class="card mb-3">
+            <div class="row no-gutters">
+                <div class="col-md-4">
+                <img src="..." class="card-img" alt="...">
+                </div>
+                <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">Company title</h5>
+                    <p class="card-text">Company description.. This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        
+        
+        <!-- firebase SDK's -->
+        <script src="/__/firebase/7.6.2/firebase-app.js"></script>
+        <script src="/__/firebase/7.6.2/firebase-auth.js"></script>
+        <script src="/__/firebase/7.6.2/firebase-analytics.js"></script>
+        <script src="/__/firebase/7.6.2/firebase-firestore.js"></script>
+        <!-- firebase init config file -->
+        <script src="/firebase/init.js"></script>
+        <script src="/firebase/firebase.js"></script>
+        <script src="/firebase/companyList.js"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    </body>
+</html>
