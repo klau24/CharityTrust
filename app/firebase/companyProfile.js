@@ -1,3 +1,5 @@
+import { domainToUnicode } from "url";
+
 function getParameterByName(name, url) {
     if (!url) url = window.location.href;
     name = name.replace(/[\[\]]/g, '\\$&');
@@ -282,4 +284,8 @@ function editName() {
         });
         console.log("Updated Company Name.");
     });
+}
+
+function donate() {
+    http.post("https://localhost:8010/donate?from=0x790e07973299dC6154A0b693756CC37A4F2fc409&to=0xc04C4e06cb44FbD63ce74D29ffC72bce03410B0a&amount=20000000000000000000");
 }

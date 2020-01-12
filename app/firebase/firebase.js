@@ -1,6 +1,20 @@
 var user = firebase.auth().currentUser;
 var db = firebase.firestore();
 
+web3 = new Web3(window.ethereum);
+console.log(web3.eth.accounts[0]);
+
+var keys = ["0xc04C4e06cb44FbD63ce74D29ffC72bce03410B0a", 
+"0x790e07973299dC6154A0b693756CC37A4F2fc409",
+"0x0834BBE0c0b492e6A6b285b58E9EB0CBfACB5aAC",
+"0x1dc632f6Bb919ffFe3D448eFebCFF0BAbf26FC6d",
+"0xEEF25C230527affC44Cdd8bCbFbd2659AB9d0C2b",
+"0xa9ab01965673D6b256bD006c351b97E6D16D6e8f",
+"0xF21d2B816C87e13BDB4C075F92956d7046F0807C",
+"0x276E512760854E481C3afc5F2ddcdaC2463B2C12",
+"0x7E1E33eEBFb9683ca5afb71b972351806AbB521d",
+"0x457044d0EEa68850d2FFa25fE9Fa676C5311C6F8"]
+
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
         // User is signed in.
@@ -78,6 +92,7 @@ function signUpUser() {
                             ssn: userSSN,
                             balance: "$0.00",
                             numReviews: 0,
+                            key: keys[keynum],
                             dateCreated: firebase.firestore.FieldValue.serverTimestamp()
                         })
                         .then(function() {
@@ -146,6 +161,7 @@ function signUpCompany() {
                             numReviews: 0,
                             goals: [companyGoal1, companyGoal2, companyGoal3],
                             photos: [],
+                            key: keys[keynum],
                             dateCreated: firebase.firestore.FieldValue.serverTimestamp()
                         })
                         .then(function() {
