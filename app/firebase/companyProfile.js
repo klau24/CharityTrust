@@ -8,7 +8,7 @@ function getParameterByName(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 // var foo = getParameterByName('foo'); // "lorem"
-var companyName = getParameterByName('name');
+// var companyName = getParameterByName('name');
 
 function loadName(name) {
     var div = document.getElementById('company_name');
@@ -59,6 +59,7 @@ var db = firebase.firestore();
 
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
+        var companyName = firebase.auth().currentUser.email;
         // User is signed in.
         getName(companyName);
         getBio(companyName);
