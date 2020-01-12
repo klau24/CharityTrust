@@ -102,6 +102,10 @@ function signUpCompany() {
     var companyPass = $('#password_field').val();
     var companyPassConf = $('#password_conf_field').val();
     var companyBio = $('#company_bio').val();
+    var companyGoal1 = $('#company_goal1').val();
+    var companyGoal2 = $('#company_goal2').val();
+    var companyGoal3 = $('#company_goal3').val();
+
 
     if (companyPassConf == companyPass) {
         firebase.auth().createUserWithEmailAndPassword(companyEmail, companyPass).catch(function(error) {
@@ -140,7 +144,7 @@ function signUpCompany() {
                             bio: companyBio,
                             moneyRaised: "$0.00",
                             numReviews: 0,
-                            goals: [],
+                            goals: [companyGoal1, companyGoal2, companyGoal3],
                             photos: [],
                             dateCreated: firebase.firestore.FieldValue.serverTimestamp()
                         })

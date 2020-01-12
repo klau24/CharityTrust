@@ -11,7 +11,7 @@ function getParameterByName(name, url) {
 var companyName = getParameterByName('name');
 
 function loadName(name) {
-    var div = document.getElementById('your_name');
+    var div = document.getElementById('company_name');
     console.log(`name is ${name}`);
 
     // replace text in HTML string:
@@ -37,19 +37,19 @@ function loadBio(bio) {
     }
 }
 
-function loadGoals(goal) {
+function loadGoals(goals) {
     var div = document.getElementById('company_goals');
 
 
     // FOR LOOP
 
     // replace text in HTML string:
-    div.innerHTML = div.innerHTML.replace('', goal);
+    div.innerHTML = div.innerHTML.replace('', goals);
 
     // manipulating text node:
     for(var node of div.childNodes){
         if(node.nodeType == 3 && node.textContent == '')
-            node.textContent = goal;
+            node.textContent = goals;
     }
 }
 
@@ -172,8 +172,8 @@ function getNumReviews(companyName) {
         if (doc.exists) {
             let data = doc.data();
             console.log(data["moneyRaised"]);
-            name = data["moneyRaised"];
-            loadName(name);
+            moneyRaised = data["moneyRaised"];
+            loadName(moneyRaised);
         }
         else {
             db.collection("companies").doc(user.email).get()
@@ -181,8 +181,8 @@ function getNumReviews(companyName) {
                 if (doc.exists) {
                     let data = doc.data();
                     console.log(data["moneyRaised"]);
-                    name = data["moneyRaised"];
-                    loadName(name);
+                    moneyRaised = data["moneyRaised"];
+                    loadName(moneyRaised);
                 }
                 else {
                     console.log("No such document!");
