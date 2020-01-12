@@ -13,13 +13,11 @@ contract CharityTrust {
         address charityAddress;
     }
 
+
     mapping(address=>Charity) charities;
 
-    constructor () public {
-    }
-
     function deposit(address payee) public payable {
-        uint amount = msg.value;
+        uint256 amount = msg.value;
         deposits[payee] = deposits[payee] + amount;
     }
 
@@ -29,28 +27,30 @@ contract CharityTrust {
         payee.transfer(payment);
     }
 
-    function createCharity() public {
-
+    function createCharity(string _name, address _charityAddress) public {
+        charities[_charityAddress] = Charity(_name, 3, 1, 0, 0, 0, 0, 0, _charityAddress);
     }
 
     function donate() public {
 
     }
 
-    function vote() public {
+    function vote(address _voterAddress, address _charityAddress) public {
+        charity = charities[_charityAddress];
 
-    }
-    
-    function calculateThreshold() private {
-
-    }
-
-    function calculateTotalFunds() private {
-
+        // pseudo code
+        if (vote == 2)
+            calculateTotalFunds(_charityAddress)
     }
 
-    function payCharity() private {
-        calculateTotalFunds()
+    function calculateTotalFunds(address _charityAddress) private {
+        //loop through all donor addresss
+        totalfunds
+        payCharity(_charityAddress, totalFunds)
+    }
+
+    function payCharity(address payable _charityAddress, uint256 amount) private {
+        //pay charity
     }
 
     function nextGoal() private {
@@ -59,8 +59,8 @@ contract CharityTrust {
 
     function paybackDonors(Charity charity) private {
         for (i=1;i<=charity.numDonors;i++) {
-            address payable donor = charity.donors[i];
-            uint256 donorAmount = withheldFunds[donor]
+            donor payable = charity.donors[i];
+            donorAmount = withheldFunds[donor]
             donor.transfer(donorAmount);
         }
     }
