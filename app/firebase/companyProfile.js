@@ -31,12 +31,6 @@ function loadBio(bio) {
 
     // replace text in HTML string:
     div.innerHTML = div.innerHTML.replace('', bio);
-
-    // manipulating text node:
-    for(var node of div.childNodes){
-        if(node.nodeType == 3 && node.textContent == '')
-            node.textContent = bio;
-    }
 }
 
 function loadGoals(goals) {
