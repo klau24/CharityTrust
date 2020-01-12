@@ -69,3 +69,17 @@
     border-right: 1px solid gray;
     border-right-color: rgba(0,0,0,0.35);
 }
+
+.company-list {
+    margin: 0.8rem auto;
+    max-width: 50em;
+}
+
+.row {
+    width: 100%;
+}
+
+.center-container {
+    margin: 0 auto;
+    max-width: 50em;
+}

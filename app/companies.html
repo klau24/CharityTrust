@@ -23,8 +23,8 @@
             <li class="nav-item">
                 <a class="nav-link" href="index.html">Home</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="companies.html">Organizations</a>
+            <li class="nav-item active">
+                <a class="nav-link" href="companies.html">Organizations<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="about.html">About Us</a>
@@ -62,32 +62,26 @@
                 </div>
             </li>
             </ul>
+
         </div>
         </nav>
-
-        <div class="row mt-5">
-            <div class="col-md-4 col-sm-2"></div>
-            <div class="col-md-4 col-sm-8">
-            <div class="card">
+        
+        <div class="company-list">
+        <div class="card mb-3">
+            <div class="row no-gutters">
+                <div class="col-md-4">
+                <img src="..." class="card-img" alt="...">
+                </div>
+                <div class="col-md-8">
                 <div class="card-body">
-                    <h4 class="card-title">Sign Up</h4>
-                    <div id="form">
-                    <div>
-                        <input type="name" class="input form-control" maxlength="30" placeholder="First Name" id="first_name" required><br />
-                        <input type="name" class="input form-control" maxlength="30" placeholder="Last Name" id="last_name" required><br />
-                        <input type="email" class="input form-control" maxlength="30" placeholder="Email" id="email_field" required><br />
-                        <input type="password" class="input form-control" maxlength="30" placeholder="Password" id="password_field" required><br />
-                        <input type="password" class="input form-control" maxlength="30" placeholder="Re-type password" id="password_conf_field" required><br />
-                        <input type="SSN" class="input form-control" maxlength="9" placeholder="Social Security Number" id="user_ssn" required><br />
-
-                        <button id="createButton" class="btn btn-primary btn-block bg-purple" onclick="signUpUser()"> Create Account </button>
-                    </div>
-                    </div>
+                    <h5 class="card-title">Company title</h5>
+                    <p class="card-text">Company description.. This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                </div>
                 </div>
             </div>
             </div>
-            <div class="col-md-4 col-sm-2"></div>
-        </div>"
+        </div>
         
         
         <!-- firebase SDK's -->
@@ -98,6 +92,7 @@
         <!-- firebase init config file -->
         <script src="/firebase/init.js"></script>
         <script src="/firebase/firebase.js"></script>
+        <script src="/firebase/companyList.js"></script>
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
